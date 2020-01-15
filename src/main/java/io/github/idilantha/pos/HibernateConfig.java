@@ -1,13 +1,16 @@
 package io.github.idilantha.pos;
 
 import lk.ijse.dep.crypto.DEPCrypt;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -41,10 +44,12 @@ public class HibernateConfig {
 
     private Properties hibernateproperties() {
         Properties properties = new Properties();
-        properties.put();
-        properties.put();
-        properties.put();
-        properties.put();
+        properties.put("hibernate.dialect ",env.getRequiredProperty("hibernate.dialect "));
+        properties.put("hibernate.show_sql",env.getRequiredProperty("hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto",env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.allow_refresh_detached_entity",env.getRequiredProperty("hibernate.allow_refresh_detached_entity"));
         return properties;
     }
+
+
 }
