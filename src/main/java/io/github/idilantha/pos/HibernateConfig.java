@@ -1,5 +1,6 @@
 package io.github.idilantha.pos;
 
+import lk.ijse.dep.crypto.DEPCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,9 +33,9 @@ public class HibernateConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dmds = new DriverManagerDataSource();
         dmds.setDriverClassName(env.getRequiredProperty("hibernate.connection.driver_class"));
-        dmds.setUsername();
-        dmds.setPassword();
-        dmds.setUrl();
+        dmds.setUsername(DEPCrypt.decode(env.getRequiredProperty("hibernate.connection.username"),"123"));
+        dmds.setPassword(DEPCrypt.decode(env.getRequiredProperty("hibernate.connection.password"),"123"));
+        dmds.setUrl(env.getRequiredProperty("hibernate.connection.url"));
         return dmds;
     }
 
