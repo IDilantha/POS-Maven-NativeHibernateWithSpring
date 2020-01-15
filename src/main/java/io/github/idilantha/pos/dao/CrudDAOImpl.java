@@ -41,8 +41,9 @@ public abstract class CrudDAOImpl<T extends SuperEntity,Id extends Serializable>
         session.delete(session.load(entity,id));
     }
 
+
     @Override
-    public void setSession(Session session) {
-        this.session = session;
+    public void getSession() {
+        return;
     }
 }
