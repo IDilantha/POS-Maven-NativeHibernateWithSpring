@@ -23,7 +23,7 @@ import java.util.Properties;
 public class HibernateConfig {
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     @Bean
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
@@ -46,7 +46,7 @@ public class HibernateConfig {
 
     private Properties hibernateproperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect ",env.getRequiredProperty("hibernate.dialect "));
+        properties.put("hibernate.dialect",env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql",env.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.hbm2ddl.auto",env.getRequiredProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.allow_refresh_detached_entity",env.getRequiredProperty("hibernate.allow_refresh_detached_entity"));
