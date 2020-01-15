@@ -51,5 +51,8 @@ public class HibernateConfig {
         return properties;
     }
 
-
+    @Bean
+    PlatformTransactionManager transactionManager(SessionFactory sessionFactory){
+        return new HibernateTransactionManager(sessionFactory);
+    }
 }
