@@ -46,7 +46,6 @@ public class OrderBOImpl implements OrderBO {
 
         for (OrderDetailDTO orderDetail : order.getOrderDetails()) {
             orderDetailDAO.save(new OrderDetail(oId, orderDetail.getCode(), orderDetail.getQty(), orderDetail.getUnitPrice()));
-
             Item item = itemDAO.find(orderDetail.getCode());
             item.setQtyOnHand(item.getQtyOnHand() - orderDetail.getQty());
             itemDAO.update(item);
