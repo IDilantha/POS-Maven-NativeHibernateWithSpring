@@ -26,22 +26,22 @@ public abstract class CrudDAOImpl<T extends SuperEntity,Id extends Serializable>
 
     @Override
     public T find(Id id) throws Exception {
-        return session.get(entity,id);
+        return getSession().get(entity,id);
     }
 
     @Override
     public void save(T entity) throws Exception {
-         session.save(entity);
+         getSession().save(entity);
     }
 
     @Override
     public void update(T entity) throws Exception {
-        session.merge(entity);
+        getSession().merge(entity);
     }
 
     @Override
     public void delete(Id id) throws Exception {
-        session.delete(session.load(entity,id));
+        getSession().delete(getSession().load(entity,id));
     }
 
 
