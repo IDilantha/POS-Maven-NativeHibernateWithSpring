@@ -20,7 +20,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public CustomEntity getOrderInfo(int orderId) throws Exception {
-        return  session.createQuery("SELECT NEW entity.CustomEntity(O.id,C.customerId,C.name,O.date) FROM Customer C " +
+        return  getSession().createQuery("SELECT NEW entity.CustomEntity(O.id,C.customerId,C.name,O.date) FROM Customer C " +
                 "INNER JOIN C.orders O WHERE O.id=?1",CustomEntity.class)
                 .setParameter(1, orderId)
                 .uniqueResult();
@@ -31,7 +31,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public CustomEntity getOrderInfo2(int orderId) throws Exception {
-        return (CustomEntity) session.createQuery("SELECT NEW entity.CustomEntity(O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice)) " +
+        return (CustomEntity) getSession().createQuery("SELECT NEW entity.CustomEntity(O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice)) " +
                 " FROM Customer C " +
                 "INNER JOIN C.orders O INNER JOIN O.orderDetails OD WHERE O.id=?1 GROUP BY O.id",CustomEntity.class).setParameter(1,orderId);
 
@@ -49,7 +49,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     @Override
     public List<CustomEntity> getOrdersInfo() throws Exception {
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT O.id as orderId, C.customerId as customerId, C.name as customerName, O.date as orderDate, SUM(OD.qty * OD.unitPrice) AS orderTotal  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId INNER JOIN  OrderDetail OD on O.id = OD.orderId GROUP BY O.id ");
+        NativeQuery nativeQuery = getSession().createNativeQuery("SELECT O.id as orderId, C.customerId as customerId, C.name as customerName, O.date as orderDate, SUM(OD.qty * OD.unitPrice) AS orderTotal  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId INNER JOIN  OrderDetail OD on O.id = OD.orderId GROUP BY O.id ");
         Query<CustomEntity> query = nativeQuery.setResultTransformer(Transformers.aliasToBean(CustomEntity.class));
         List<CustomEntity> list = query.list();
         return list;
