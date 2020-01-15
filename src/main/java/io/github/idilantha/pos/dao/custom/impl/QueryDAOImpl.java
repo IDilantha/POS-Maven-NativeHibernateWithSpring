@@ -4,6 +4,7 @@ package io.github.idilantha.pos.dao.custom.impl;
 import io.github.idilantha.pos.dao.custom.QueryDAO;
 import io.github.idilantha.pos.entity.CustomEntity;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
@@ -14,7 +15,7 @@ import java.util.List;
 @Component
 public class QueryDAOImpl implements QueryDAO {
 
-    protected Session session;
+    protected SessionFactory sessionFactory;
 
 
     @Override
@@ -55,8 +56,8 @@ public class QueryDAOImpl implements QueryDAO {
     }
 
     @Override
-    public void setSession(Session session) {
-        this.session=session;
+    public Session getSession() {
+        return sessionFactory.getCurrentSession();
     }
 
 }
