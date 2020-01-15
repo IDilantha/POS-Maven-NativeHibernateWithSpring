@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Import(HibernateConfig.class)
-@ComponentScan(basePackages = {"io.github.idilantha.pos"})
+@ComponentScan(basePackages = {"io"})
 @Configuration
 public class AppConfig {
 

@@ -19,7 +19,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("file:${user.dir}/resources/application.properties")
+@PropertySource("file:${user.dir}/src/main/resources/application.properties")
 public class HibernateConfig {
 
     @Autowired

@@ -7,8 +7,9 @@ import io.github.idilantha.pos.entity.OrderDetail;
 import io.github.idilantha.pos.entity.OrderDetailPK;
 import org.hibernate.query.NativeQuery;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class OrderDetailDAOImpl extends CrudDAOImpl<OrderDetail,OrderDetailPK> implements OrderDetailDAO {
 
     @Override

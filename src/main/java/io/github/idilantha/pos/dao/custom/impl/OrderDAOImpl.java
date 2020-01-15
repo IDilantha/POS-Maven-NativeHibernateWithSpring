@@ -5,8 +5,9 @@ import io.github.idilantha.pos.dao.custom.OrderDAO;
 import io.github.idilantha.pos.entity.Order;
 import org.hibernate.query.NativeQuery;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class OrderDAOImpl extends CrudDAOImpl<Order,Integer> implements OrderDAO {
 
     @Override

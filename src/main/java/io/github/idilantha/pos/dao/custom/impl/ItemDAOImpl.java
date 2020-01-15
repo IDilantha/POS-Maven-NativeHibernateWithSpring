@@ -5,8 +5,9 @@ import io.github.idilantha.pos.dao.CrudDAOImpl;
 import io.github.idilantha.pos.dao.custom.ItemDAO;
 import io.github.idilantha.pos.entity.Item;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class ItemDAOImpl extends CrudDAOImpl<Item,String> implements ItemDAO {
 
     @Override
