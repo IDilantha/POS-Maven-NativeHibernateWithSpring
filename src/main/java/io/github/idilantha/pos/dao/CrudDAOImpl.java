@@ -2,6 +2,8 @@ package io.github.idilantha.pos.dao;
 
 import io.github.idilantha.pos.entity.SuperEntity;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -9,7 +11,8 @@ import java.util.List;
 
 public abstract class CrudDAOImpl<T extends SuperEntity,Id extends Serializable> implements CrudDAO<T,Id> {
 
-    protected Session session;
+    @Autowired
+    protected SessionFactory sessionFactory;
     private Class<T> entity;
 
     public CrudDAOImpl() {
@@ -18,7 +21,7 @@ public abstract class CrudDAOImpl<T extends SuperEntity,Id extends Serializable>
 
     @Override
     public List<T> findAll() throws Exception {
-        return session.createQuery("FROM "+entity.getName()).list();
+        return getSession().createQuery("FROM "+entity.getName()).list();
     }
 
     @Override
@@ -43,7 +46,7 @@ public abstract class CrudDAOImpl<T extends SuperEntity,Id extends Serializable>
 
 
     @Override
-    public void getSession() {
-        return;
+    public Session getSession() {
+        return sessionFactory.getCurrentSession();
     }
 }
