@@ -1,6 +1,6 @@
 
 
-# Point of Sale System with Maven and Native Hibernate and Spring
+# Point of Sale System with Maven and Native Hibernate+Spring
 
 Getting Started
 
