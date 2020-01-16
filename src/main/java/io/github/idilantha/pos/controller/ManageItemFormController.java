@@ -153,14 +153,20 @@ public class ManageItemFormController implements Initializable {
     @FXML
     private void btnDelete_OnAction(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                "Are you sure whether you want to delete this item?",
+                "Are you sure Whether you want to delete this item?",
                 ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> buttonType = alert.showAndWait();
         if (buttonType.get() == ButtonType.YES) {
             ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
             try {
                 itemBO.deleteItem(selectedItem.getCode());
-                tblItems.getItems().remove(selectedItem);
+                tblItems.getItems().clear();
+                List<ItemDTO> allItems = itemBO.findAllItems();
+                ObservableList<ItemTM> items = tblItems.getItems();
+
+                for (ItemDTO item : allItems) {
+                    items.add(new ItemTM(item.getCode(), item.getDescription(),item.getQtyOnHand(), item.getUnitPrice()));
+                }
             } catch (AlreadyExistsInOrderException e) {
                 new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
             } catch (Exception e) {

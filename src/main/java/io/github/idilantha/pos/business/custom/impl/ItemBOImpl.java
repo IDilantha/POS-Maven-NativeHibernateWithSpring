@@ -37,10 +37,11 @@ public class ItemBOImpl implements ItemBO {
     @Override
     public void deleteItem(String itemCode) throws Exception {
         if (orderDetailDAO.existsByItemCode(itemCode)) {
-            new Alert(Alert.AlertType.ERROR, "Item Already exist in an order , Unable to Delete");
+            new Alert(Alert.AlertType.ERROR, "Item Already exist in an order , Unable to Delete").show();
             return;
+        }else {
+            itemDAO.delete(itemCode);
         }
-        itemDAO.delete(itemCode);
     }
 
     @Override
