@@ -1,6 +1,7 @@
 package io.github.idilantha.pos.controller;
 
 import com.jfoenix.controls.JFXProgressBar;
+import io.github.idilantha.pos.AppInitializer;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -23,6 +24,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.dep.crypto.DEPCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
 import java.io.BufferedReader;
@@ -52,11 +54,11 @@ public class MainFormController implements Initializable {
     private Environment env;
 
     private String getUsername(){
-        return env.getRequiredProperty(DEPCrypt.decode("hibernate.connection.username","123"));
+        return DEPCrypt.decode(env.getRequiredProperty("hibernate.connection.username"),"123");
     }
 
     private String getPassword(){
-        return env.getRequiredProperty(DEPCrypt.decode("hibernate.connection.password","123"));
+        return DEPCrypt.decode(env.getRequiredProperty("hibernate.connection.password"),"123");
     }
 
     private String getIp(){
@@ -73,6 +75,7 @@ public class MainFormController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle rb) {
+        env = AppInitializer.ctx.getBean(Environment.class);
         FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), root);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
