@@ -4,6 +4,8 @@ import io.github.idilantha.pos.AppInitializer;
 import io.github.idilantha.pos.business.custom.CustomerBO;
 import io.github.idilantha.pos.business.exception.AlreadyExistsInOrderException;
 import io.github.idilantha.pos.dto.CustomerDTO;
+import io.github.idilantha.pos.dto.ItemDTO;
+import io.github.idilantha.pos.util.ItemTM;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -166,7 +168,12 @@ public class ManageCustomerFormController implements Initializable {
             CustomerTM selectedItem = tblCustomers.getSelectionModel().getSelectedItem();
             try {
                 customerBO.deleteCustomer(selectedItem.getId());
-                tblCustomers.getItems().remove(selectedItem);
+                tblCustomers.getItems().clear();
+                List<CustomerDTO> allCustomers = customerBO.findAllCustomers();
+                ObservableList<CustomerTM> customers = tblCustomers.getItems();
+                for (CustomerDTO c : allCustomers) {
+                    customers.add(new CustomerTM(c.getId(), c.getName(), c.getAddress()));
+                }
             }catch (AlreadyExistsInOrderException e){
                 new Alert(Alert.AlertType.INFORMATION,e.getMessage()).show();
             } catch (Exception e) {

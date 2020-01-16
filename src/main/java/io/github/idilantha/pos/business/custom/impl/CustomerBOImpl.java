@@ -36,10 +36,11 @@ public class CustomerBOImpl implements CustomerBO {
     @Override
     public void deleteCustomer(String customerId) throws Exception {
         if (orderDAO.existsByCustomerId(customerId)) {
-            new Alert(Alert.AlertType.ERROR, "Customer Already exist in an order , Unable to Delete");
+            new Alert(Alert.AlertType.ERROR, "Customer Already exist in an order , Unable to Delete").show();
             return;
+        }else {
+            customerDAO.delete(customerId);
         }
-        customerDAO.delete(customerId);
     }
 
     @Override

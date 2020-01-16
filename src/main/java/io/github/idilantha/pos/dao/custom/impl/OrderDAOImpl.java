@@ -18,7 +18,7 @@ public class OrderDAOImpl extends CrudDAOImpl<Order,Integer> implements OrderDAO
 
     @Override
     public boolean existsByCustomerId(String customerId) throws Exception {
-        NativeQuery nativeQuery = getSession().createNativeQuery("SELECT * FROM `Order` WHERE customerId=?");
+        NativeQuery nativeQuery = getSession().createNativeQuery("SELECT * FROM `Order` WHERE customerId=? LIMIT 1");
         nativeQuery.setParameter(1,customerId);
         return nativeQuery.uniqueResult() != null;
     }
